@@ -1,0 +1,68 @@
+﻿@model  LogIn.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Categories</h2>
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-primary" href="@Url.Action("create")">Create</a>
+        @if (Session["AlreadyHas"] != null)
+        {
+            <hr />
+            <div class="alert alert-danger">
+                This category already exists
+            </div>
+
+            Session["AlreadyHas"] = null;
+        }
+
+        @if (Session["ActionDone"] != null)
+        {
+            <hr />
+            <div class="alert alert-success">
+                Your action successfuly completed
+            </div>
+
+            Session["ActionDone"] = null;
+        }
+
+        @if (Session["DeleteInfo"] != null)
+        {
+            <hr />
+            <div class="alert alert-info">
+                You can`t delete this category, this category has payment(s)
+            </div>
+
+            Session["DeleteInfo"] = null;
+        }
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Categories)
+                {
+                    <tr>
+                        <td>@item.Name  <span class="badge badge-info">@item.Payments.Count()</span></td>
+                        <td>
+                            <a href="@Url.Action("edit","categories",new { id = item.Id })">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a onclick="return confirm('are you sure?')" href="@Url.Action("delete","categories",new { id = item.Id })">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

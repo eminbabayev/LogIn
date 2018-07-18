@@ -1,0 +1,18 @@
+﻿@model LogIn.Models.Category
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<div class="row">
+    <div class="col-md-12">
+        <form method="post" action="@Url.Action("edit",new { id = Model.Id})">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="Name" class="form-control" value="@Model.Name"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+    </div>
+</div>
+
